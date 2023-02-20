@@ -52,7 +52,7 @@ void saveXml(QXmlStreamWriter *writer, Generator *gen, DragWidget *dw)
   { 
     for(size_t j = 0; j < (size_t)dw->children().size(); j++)
     {
-      DragObject *child = dynamic_cast<DragObject*>(dw->children().at(j));
+      class DragObject *child = dynamic_cast<class DragObject*>(dw->children().at(j));
       if(child)
       {
         if(child->GetName() == gen->GetNode(i)->GetNodeName() && child->GetName() != "" && child->GetName() != "deleted")
@@ -83,7 +83,7 @@ void saveXml(QXmlStreamWriter *writer, Generator *gen, DragWidget *dw)
     // check if link is hidden or not.
     for(size_t j = 0; j < (size_t)dw->children().size(); j++)
     {
-      DragObject *child = dynamic_cast<DragObject*>(dw->children().at(j));
+      class DragObject *child = dynamic_cast<class DragObject*>(dw->children().at(j));
       if(child)
       {
         if(child->GetName() == gen->GetNetworkHardware(i)->GetNetworkHardwareName())
@@ -148,7 +148,7 @@ void saveXml(QXmlStreamWriter *writer, Generator *gen, DragWidget *dw)
     {
       for(size_t j = 0; j < (size_t)dw->children().size(); j++)
       {
-        DragObject *child = dynamic_cast<DragObject*>(dw->children().at(j));
+        class DragObject *child = dynamic_cast<class DragObject*>(dw->children().at(j));
         if(child)
         {
           if(child->GetName() == gen->GetNetworkHardware(i)->GetNetworkHardwareName())

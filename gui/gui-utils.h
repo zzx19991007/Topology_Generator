@@ -33,6 +33,8 @@
 #include "generator.h"
 #include "drag-widget.h"
 
+#include <QXmlStreamWriter> 
+
 /**
  * \namespace gui utils
  * \brief gui utils functions.

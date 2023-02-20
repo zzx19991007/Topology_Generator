@@ -31,6 +31,8 @@
 #include <QWidget>
 #include "drag-widget.h"
 
+class QLineEdit;
+
 /**
  * \brief Ping application page
  */

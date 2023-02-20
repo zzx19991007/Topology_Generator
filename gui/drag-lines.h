@@ -31,6 +31,8 @@
 #include <vector>
 #include <QtGui>
 
+//#include <iostream>
+
 /**
  * \ingroup generator
  * \brief The dragged lines.

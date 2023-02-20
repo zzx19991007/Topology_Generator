@@ -25,9 +25,6 @@
  * \date 2009
  */
 
-#include <QtGui>
-#include <iostream>
-
 #include "drag-object.h"
 #include "drag-widget.h"
 

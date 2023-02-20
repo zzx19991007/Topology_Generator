@@ -30,6 +30,11 @@
 #include "application-dialog.h"
 #include "application-pages.h"
 
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QPushButton>
+#include <QHBoxLayout>
+
 ApplicationDialog::ApplicationDialog(DragWidget *dw)
 {
   this->m_dw = dw;

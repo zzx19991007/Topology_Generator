@@ -45,6 +45,14 @@
 
 #include "application-dialog.h"
 
+#include <QToolBar>
+#include <QHBoxLayout>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QXmlStreamWriter>
+#include <QMenuBar>
+
 MainWindow::MainWindow(const std::string &simulationName)
 {
   this->m_dw = NULL;

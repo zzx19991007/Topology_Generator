@@ -30,6 +30,12 @@
 #include "application-pages.h"
 #include "main-window.h"
 
+#include <QGroupBox>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QMessageBox>
+
 PingPage::PingPage(QWidget *parent, DragWidget *dw) : QWidget(parent)
 {
   this->m_dw = dw;

@@ -25,7 +25,7 @@
  * \date 2009
  */
 
-#include <QtGui>
+//#include <QtGui>
 #include <iostream>
 #include <stdexcept>
 
@@ -41,6 +41,13 @@
 #include "utils.h"
 #include "gui-utils.h"
 #include "array-utils.h"
+
+#include <QTimer>
+#include <QAction>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QDrag>
+#include <QPainter>
 
 DragWidget::DragWidget(QWidget *parent) : QWidget(parent)
 {
@@ -84,7 +91,7 @@ void DragWidget::CreateObject(const std::string &type, const std::string &name, 
   ico["Bridge"]   = ":/Ico/Switch.png";
   ico["Router"]   = ":/Ico/Router.png";
 
-  DragObject *label = new DragObject(this);
+  class DragObject *label = new class DragObject(this);
   label->SetName(name);
   this->UpdateToolTips();
   
@@ -129,8 +136,8 @@ void DragWidget::dropEvent(QDropEvent *event)
     QPoint offset;
     dataStream >> pixmap >> offset;
 
-    DragObject *child = static_cast<DragObject*>(childAt( this->m_lastPosition ));
-    DragObject *label = new DragObject(this);
+    class DragObject *child = static_cast<class DragObject*>(childAt( this->m_lastPosition ));
+    class DragObject *label = new class DragObject(this);
     if(child)
     {
       label->SetName(child->GetName());
@@ -161,18 +168,18 @@ void DragWidget::dropEvent(QDropEvent *event)
 
 void DragWidget::mousePressEvent(QMouseEvent *event)
 {
-  DragObject *child = static_cast<DragObject*>(childAt(event->pos()));
+  class DragObject *child = static_cast<class DragObject*>(childAt(event->pos()));
   if (!child)
   {
     // test if we are looking for a drawed line
     for(size_t i = 0; i < this->m_drawLines.size(); i++)
     {
       // equipement A(xa, ya)
-      DragObject *begin = this->GetChildFromName(this->m_drawLines.at(i).GetFirst());
+      class DragObject *begin = this->GetChildFromName(this->m_drawLines.at(i).GetFirst());
       double xa = begin->pos().x() + (begin->width() / 2);
       double ya = begin->pos().y() + (begin->height() / 2);
       // equipement B(xb, yb)
-      DragObject *end = this->GetChildFromName(this->m_drawLines.at(i).GetSecond());
+      class DragObject *end = this->GetChildFromName(this->m_drawLines.at(i).GetSecond());
       double xb = end->pos().x() + (end->width() / 2);
       double yb = end->pos().y() + (end->height() / 2);
 
@@ -257,7 +264,7 @@ void DragWidget::mousePressEvent(QMouseEvent *event)
   this->m_lastPosition = event->pos();
 
   // used if we are currently under drawing a line.
-  DragObject *child2 = NULL;
+  class DragObject *child2 = NULL;
   if(this->m_traceNetworkHardware)
   {
     if(this->m_networkHardwareBegin == "")
@@ -443,11 +450,11 @@ void DragWidget::ResetSelected()
   this->m_networkHardwareType = "";
 }
 
-DragObject* DragWidget::GetChildFromName(const std::string &name)
+class DragObject* DragWidget::GetChildFromName(const std::string &name)
 {
   for(size_t i = 0; i < (size_t)this->children().size(); i++)
   {
-    DragObject *child = dynamic_cast<DragObject*>(this->children().at(i));
+    class DragObject *child = dynamic_cast<class DragObject*>(this->children().at(i));
     if(child)
     {
       if( child->GetName() == name)
@@ -456,7 +463,7 @@ DragObject* DragWidget::GetChildFromName(const std::string &name)
       }
     }
   }
-  return new DragObject(this);
+  return new class DragObject(this);
 }
 
 void DragWidget::AddDrawLine(const DragLines &dl)
@@ -482,8 +489,8 @@ void DragWidget::EraseDrawLine(const size_t &index)
 std::vector<std::string> DragWidget::GetLastSelected()
 {
   std::vector<std::string> res;
-  DragObject *child = this->GetChildFromName(this->m_networkHardwareBegin);
-  DragObject *child2 = this->GetChildFromName(this->m_networkHardwareEnd);
+  class DragObject *child = this->GetChildFromName(this->m_networkHardwareBegin);
+  class DragObject *child2 = this->GetChildFromName(this->m_networkHardwareEnd);
   if (child)
   {
     res.push_back(child->GetName());
@@ -549,8 +556,8 @@ void DragWidget::paintEvent(QPaintEvent * /*event*/)
       {
         paint.setPen(p2p);
       }
-      DragObject *begin = this->GetChildFromName(this->m_drawLines.at(i).GetFirst());
-      DragObject *end = this->GetChildFromName(this->m_drawLines.at(i).GetSecond());
+      class DragObject *begin = this->GetChildFromName(this->m_drawLines.at(i).GetFirst());
+      class DragObject *end = this->GetChildFromName(this->m_drawLines.at(i).GetSecond());
       paint.drawLine((begin->pos().x() + (begin->width() / 2)), (begin->pos().y() + (begin->height() / 2)),
                      (end->pos().x() + (end->width() / 2)), (end->pos().y() + (end->height() / 2)));
     }
@@ -584,7 +591,7 @@ void DragWidget::paintEvent(QPaintEvent * /*event*/)
 
 void DragWidget::DeleteSelected()
 {
-  DragObject *child = static_cast<DragObject*>(childAt(this->m_lastPosition));
+  class DragObject *child = static_cast<class DragObject*>(childAt(this->m_lastPosition));
   if(!child)
   {
     // test if we are under deleting a line !
@@ -713,9 +720,9 @@ void DragWidget::DeleteSelected()
           isHide = true;
           for(size_t k = 0; k < (size_t)this->children().size(); k++)
           {
-            if(dynamic_cast<DragObject*>((this->children().at(k))))
+            if(dynamic_cast<class DragObject*>((this->children().at(k))))
             {
-              if( dynamic_cast<DragObject*>((this->children().at(k)))->GetName() == this->m_mw->GetGenerator()->GetNetworkHardware(j)->GetNetworkHardwareName())
+              if( dynamic_cast<class DragObject*>((this->children().at(k)))->GetName() == this->m_mw->GetGenerator()->GetNetworkHardware(j)->GetNetworkHardwareName())
               {
                 isHide = false;
               }
@@ -799,7 +806,7 @@ void DragWidget::UpdateToolTips()
   // Get all equipements on the drag n drop zone
   for(size_t i = 0; i < (size_t)this->children().size(); i++)
   {
-    DragObject *child = dynamic_cast<DragObject*>(this->children().at(i));
+    class DragObject *child = dynamic_cast<class DragObject*>(this->children().at(i));
     if(child)
     {
       if(child->GetName() != "deleted")
